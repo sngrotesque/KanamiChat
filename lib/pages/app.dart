@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:calabiyau_kanami/config/constants.dart';
+import 'package:calabiyau_kanami/config/exception.dart';
+
 import 'package:calabiyau_kanami/pages/home/home.dart';
 import 'package:calabiyau_kanami/pages/chat/chat.dart';
 import 'package:calabiyau_kanami/pages/profile/profile.dart';
@@ -46,12 +48,12 @@ class _MyAppState extends State<MyApp> {
     selectedItemColor: Colors.blue[600],
     unselectedItemColor: Colors.grey[400],
   );
-  int currentSelectedIndex = 0;
   final List<Widget> pages = [
     const HomePage(),
     const ChatPage(),
     const ProfilePage(),
   ];
+  int currentSelectedIndex = 0;
 
   /// 方法定义
   @override
@@ -61,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       extendBodyBehindAppBar: true,
       extendBody: true,
 
-      appBar: buildAppBarView('Test title'),
+      appBar: buildAppBarView('KanamiChat'),
       body: IndexedStack(index: currentSelectedIndex, children: pages),
       bottomNavigationBar: buildBottomNavigationBarView(),
     );
@@ -92,14 +94,14 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                   const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.search, size: 20),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_vert, size: 20),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: const Icon(Icons.search, size: 20),
+                  // ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: const Icon(Icons.more_vert, size: 20),
+                  // ),
                 ],
               ),
             ),
@@ -115,25 +117,27 @@ class _MyAppState extends State<MyApp> {
       child: Theme(
         // 局部覆盖主题
         data: Theme.of(context).copyWith(
-          splashFactory: NoSplash.splashFactory, // 去掉水波纹效果
-          canvasColor: Colors
-              .transparent, // 画布颜色、背景色调成透明，否则 BottomNavigationBar 内部会有默认白底
+          // 去掉水波纹效果
+          splashFactory: NoSplash.splashFactory,
+          // 画布颜色、背景色调成透明，否则 BottomNavigationBar 内部会有默认白底
+          canvasColor: Colors.transparent,
         ),
         child: Container(
           // BottomNavigationBar 的高度调整
           height: AppConstants.bottomBarHeight,
           decoration: BoxDecoration(
             // BottomNavBar 白色覆盖层
-            color: Colors.white.withValues(alpha: 0.2),
+            color: Colors.white.withValues(alpha: 0.5),
             // 加一个淡淡的香奈美粉色线
-            border: const Border(
-              top: BorderSide(color: Color.fromRGBO(180, 162, 216, 0.1), width: 1),
+            border: Border(
+              top: BorderSide(color: buildBottomBarColor(2, 0.2), width: 0.5),
             ),
           ),
           child: BottomNavigationBar(
             // 强制四个图标平分屏幕宽度，不再进行任何动态位移
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.transparent,
+            // 去掉阴影，防止出现黑色黑边
             elevation: 0,
 
             // 这里的颜色会自动作用于 Icon 和 Image（只要 Image 没写死 color）
@@ -160,6 +164,31 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  Color buildBottomBarColor(int index, double algha) {
+    final List<Color> bottomBarBorderTopLineColor = [
+      // 白色头发（带点紫色）
+      Color.fromRGBO(180, 162, 216, algha),
+      Color.fromRGBO(217, 205, 238, algha),
+      // 粉色鬓发
+      Color.fromRGBO(243, 161, 222, algha),
+    ];
+
+    if ((index < 0) || (index >= bottomBarBorderTopLineColor.length)) {
+      throw KanamiChatException(
+        'buildBottomBarLine',
+        'index 必须大于等于 0 且小于 ${bottomBarBorderTopLineColor.length}。',
+      );
+    }
+    if ((algha < 0) || (algha > 1)) {
+      throw KanamiChatException(
+        'buildBottomBarLine',
+        'algha 必须大于等于 0 且小于 1。',
+      );
+    }
+
+    return bottomBarBorderTopLineColor[index];
   }
 
   BottomNavigationBarItem buildNavItem(

@@ -26,8 +26,9 @@ build/
 
 # Other
 /assets/images/others/
-/change_name.py
 /AI_QA/
+/python/
 *.bak
 *.backup
 *.bat
+
