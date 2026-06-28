@@ -16,9 +16,14 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  dio: ^5.9.2
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/icons/
+    - assets/images/
 
   fonts:
     - family: Loliti
