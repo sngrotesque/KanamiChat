@@ -26,3 +26,7 @@ build/
 
 # Other
 /assets/images/others/
+/change_name.py
+/name_with_icon.md
+*.bak
+*.backup

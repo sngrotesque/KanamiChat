@@ -17,6 +17,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   dio: ^5.9.2
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -29,3 +30,12 @@ flutter:
     - family: Loliti
       fonts:
       - asset: assets/fonts/llt.ttf
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/images/app_icon.png"
+
+  windows:
+    generate: true
+    image_path: "assets/images/app_icon.png"
+    icon_size: 256
