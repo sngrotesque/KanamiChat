@@ -1,3 +1,4 @@
+// lib\pages\app.dart
 import 'package:flutter/material.dart';
 
 import 'package:calabiyau_kanami/config/constants.dart';
@@ -93,15 +94,6 @@ class _MyAppState extends State<MyApp> {
                     title,
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
-                  const Spacer(),
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: const Icon(Icons.search, size: 20),
-                  // ),
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: const Icon(Icons.more_vert, size: 20),
-                  // ),
                 ],
               ),
             ),
@@ -182,10 +174,7 @@ class _MyAppState extends State<MyApp> {
       );
     }
     if ((algha < 0) || (algha > 1)) {
-      throw KanamiChatException(
-        'buildBottomBarLine',
-        'algha 必须大于等于 0 且小于 1。',
-      );
+      throw KanamiChatException('buildBottomBarLine', 'algha 必须大于等于 0 且小于 1。');
     }
 
     return bottomBarBorderTopLineColor[index];
