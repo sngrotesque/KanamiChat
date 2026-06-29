@@ -1,4 +1,4 @@
-package com.example.calabiyau_kanami
+package calabiyau.sn.kanami
 
 import io.flutter.embedding.android.FlutterActivity
 
